@@ -1,0 +1,54 @@
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+venv/
+.env/
+.venv/
+env/
+ENV/
+
+# Conda
+conda-meta/
+*.conda
+
+.env
+
+.vscode/
+.idea/
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Logs
+# =========================
+*.log
+
+experiments/*.json
+
+!experiments/.gitkeep
+
+memory/evolution_memory.json
+
+# Optional:
+!memory/.gitkeep
+
+.DS_Store
+Thumbs.db
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+build/
+dist/
+*.egg-info/
+
+*.tmp
+*.bak

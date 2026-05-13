@@ -1,0 +1,122 @@
+[
+  {
+    "question": "A train travels 120 km at 60 km/h, then 180 km at 90 km/h. What is the average speed for the whole journey?",
+    "answer": 75.0,
+    "type": "word_problem"
+  },
+  {
+    "question": "A shopkeeper buys 40 items at $15 each and sells all of them at $22 each. What is the total profit?",
+    "answer": 280.0,
+    "type": "word_problem"
+  },
+  {
+    "question": "A tank can be filled by pipe A in 6 hours and by pipe B in 4 hours. How many hours does it take to fill the tank if both pipes are open?",
+    "answer": 2.4,
+    "type": "word_problem"
+  },
+  {
+    "question": "A person invests $5000 at 8% simple interest per year. How much interest is earned after 3 years?",
+    "answer": 1200.0,
+    "type": "word_problem"
+  },
+  {
+    "question": "Solve for x: 2x squared minus 7x plus 3 equals 0. Give the larger root only.",
+    "answer": 3.0,
+    "type": "algebra"
+  },
+  {
+    "question": "If log base 2 of x equals 5, what is x?",
+    "answer": 32.0,
+    "type": "algebra"
+  },
+  {
+    "question": "Solve for x: 3x + 14 = 2x - 5. What is x?",
+    "answer": -19.0,
+    "type": "algebra"
+  },
+  {
+    "question": "A quadratic equation has roots x = -3 and x = 5. What is the coefficient of x in the standard form x squared + bx + c = 0?",
+    "answer": -2.0,
+    "type": "algebra"
+  },
+  {
+    "question": "A circle has a radius of 7 cm. What is its area? Use pi = 3.14159 and round to 2 decimal places. Write your final answer as: Answer: [number]",
+    "answer": 153.94,
+    "type": "geometry"
+  },
+  {
+    "question": "A rectangle has length 13 cm and width 5 cm. What is the length of its diagonal? Round to 3 decimal places. Write your final answer as: Answer: [number]",
+    "answer": 13.928,
+    "type": "geometry"
+  },
+  {
+    "question": "A right triangle has legs of length 9 cm and 12 cm. What is the length of the hypotenuse? Write your final answer as: Answer: [number]",
+    "answer": 15.0,
+    "type": "geometry"
+  },
+  {
+    "question": "A sphere has a radius of 3 m. What is its volume? Use pi = 3.14159 and round to 2 decimal places. Write your final answer as: Answer: [number]",
+    "answer": 113.1,
+    "type": "geometry"
+  },
+  {
+    "question": "A square has a side length of 8 cm. What is the length of its diagonal? Round to 2 decimal places. Write your final answer as: Answer: [number]",
+    "answer": 11.31,
+    "type": "geometry"
+  },
+  {
+    "question": "A ball is dropped from rest and falls for 4 seconds. Using g = 9.8 m/s squared, how far does it fall in metres? Write your final answer as: Answer: [number]",
+    "answer": 78.4,
+    "type": "physics"
+  },
+  {
+    "question": "A car accelerates uniformly from 0 to 30 m/s in 10 seconds. What distance does it cover in metres? Write your final answer as: Answer: [number]",
+    "answer": 150.0,
+    "type": "physics"
+  },
+  {
+    "question": "A force of 80 N acts on a mass of 16 kg. What is the acceleration in m/s squared? Write your final answer as: Answer: [number]",
+    "answer": 5.0,
+    "type": "physics"
+  },
+  {
+    "question": "An object of mass 4 kg is moving at 10 m/s. What is its kinetic energy in joules? Write your final answer as: Answer: [number]",
+    "answer": 200.0,
+    "type": "physics"
+  },
+  {
+    "question": "A 2 kg object is lifted 5 m above the ground. Using g = 9.8 m/s squared, what is its gravitational potential energy in joules? Write your final answer as: Answer: [number]",
+    "answer": 98.0,
+    "type": "physics"
+  },
+  {
+    "question": "Find the sum of the first 20 terms of the arithmetic series: 3, 7, 11, 15, ...",
+    "answer": 820.0,
+    "type": "series"
+  },
+  {
+    "question": "What is the 15th term of the arithmetic sequence that starts at 4 with a common difference of 6?",
+    "answer": 88.0,
+    "type": "series"
+  },
+  {
+    "question": "Find the sum of the first 8 terms of the geometric series: 2, 6, 18, 54, ...",
+    "answer": 6560.0,
+    "type": "series"
+  },
+  {
+    "question": "A geometric sequence has first term 5 and common ratio 3. What is the 6th term?",
+    "answer": 1215.0,
+    "type": "series"
+  },
+  {
+    "question": "What is the sum of all integers from 1 to 100?",
+    "answer": 5050.0,
+    "type": "series"
+  },
+  {
+    "question": "A geometric series has first term 1 and common ratio 0.5. What is the sum to infinity?",
+    "answer": 2.0,
+    "type": "series"
+  }
+]

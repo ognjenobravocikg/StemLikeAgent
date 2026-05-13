@@ -1,0 +1,11 @@
+{
+  "domain": "math_reasoning",
+  "planner": false,
+  "critic": false,
+  "reflection": false,
+  "retrieval": false,
+  "self_consistency": false,
+  "formula_solver": false,
+  "geometry_solver": false,
+  "knowledge_retriever": false
+}

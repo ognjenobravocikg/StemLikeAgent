@@ -1,122 +1,171 @@
 [
   {
-    "question": "A train travels 120 km at 60 km/h, then 180 km at 90 km/h. What is the average speed for the whole journey?",
-    "answer": 75.0,
+    "question": "A train travels 180 km uphill at 45 km/h and returns downhill at 60 km/h along the same route. What is the average speed for the entire trip in km/h? Round to 2 decimal places.",
+    "answer": 51.43,
     "type": "word_problem"
   },
   {
-    "question": "A shopkeeper buys 40 items at $15 each and sells all of them at $22 each. What is the total profit?",
-    "answer": 280.0,
+    "question": "A shopkeeper buys 120 items for $18 each. He sells 70% of them at $25 each and the rest at a 10% loss. What is the total profit?",
+    "answer": 420.0,
     "type": "word_problem"
   },
   {
-    "question": "A tank can be filled by pipe A in 6 hours and by pipe B in 4 hours. How many hours does it take to fill the tank if both pipes are open?",
-    "answer": 2.4,
+    "question": "Pipe A fills a tank in 8 hours, Pipe B fills it in 12 hours, and Pipe C empties it in 18 hours. If all three pipes are opened together, how long does it take to fill the tank? Round to 2 decimal places.",
+    "answer": 5.14,
     "type": "word_problem"
   },
   {
-    "question": "A person invests $5000 at 8% simple interest per year. How much interest is earned after 3 years?",
-    "answer": 1200.0,
+    "question": "A sum of $8000 is invested, part at 6% simple interest and the rest at 10% simple interest. After 4 years, the total interest earned is $2560. How much was invested at 10%?",
+    "answer": 3200.0,
     "type": "word_problem"
   },
   {
-    "question": "Solve for x: 2x squared minus 7x plus 3 equals 0. Give the larger root only.",
+    "question": "A bacteria colony doubles every 5 hours. Starting with 150 bacteria, after how many hours will the population first exceed 19,000?",
+    "answer": 35.0,
+    "type": "word_problem"
+  },
+  {
+    "question": "Solve for x: x squared minus 11x plus 24 equals 0. Give the larger root only.",
+    "answer": 8.0,
+    "type": "algebra"
+  },
+  {
+    "question": "If log base 3 of (x minus 1) equals 4, what is x?",
+    "answer": 82.0,
+    "type": "algebra"
+  },
+  {
+    "question": "Solve for x: square root of (2x + 3) plus square root of (x - 1) equals 5.",
+    "answer": 6.0,
+    "type": "algebra"
+  },
+  {
+    "question": "A quadratic equation has roots x = 4 and x = -7. What is the coefficient of x in the standard form x squared + bx + c = 0?",
     "answer": 3.0,
     "type": "algebra"
   },
   {
-    "question": "If log base 2 of x equals 5, what is x?",
-    "answer": 32.0,
+    "question": "If f(x) = 2x squared - 5x + 1, what is f(4)?",
+    "answer": 13.0,
     "type": "algebra"
   },
   {
-    "question": "Solve for x: 3x + 14 = 2x - 5. What is x?",
-    "answer": -19.0,
-    "type": "algebra"
-  },
-  {
-    "question": "A quadratic equation has roots x = -3 and x = 5. What is the coefficient of x in the standard form x squared + bx + c = 0?",
-    "answer": -2.0,
-    "type": "algebra"
-  },
-  {
-    "question": "A circle has a radius of 7 cm. What is its area? Use pi = 3.14159 and round to 2 decimal places. Write your final answer as: Answer: [number]",
-    "answer": 153.94,
+    "question": "A circle has radius 9 cm. A sector of 120 degrees is removed. What is the area of the remaining part of the circle? Use pi = 3.14159 and round to 2 decimal places.",
+    "answer": 169.65,
     "type": "geometry"
   },
   {
-    "question": "A rectangle has length 13 cm and width 5 cm. What is the length of its diagonal? Round to 3 decimal places. Write your final answer as: Answer: [number]",
-    "answer": 13.928,
+    "question": "A rectangle is inscribed inside a circle of radius 13 cm. One side of the rectangle is 10 cm. What is the area of the rectangle?",
+    "answer": 240.0,
     "type": "geometry"
   },
   {
-    "question": "A right triangle has legs of length 9 cm and 12 cm. What is the length of the hypotenuse? Write your final answer as: Answer: [number]",
-    "answer": 15.0,
+    "question": "A ladder 25 metres long leans against a wall. The foot of the ladder is 7 metres from the wall. What height does the ladder reach on the wall? Round to 2 decimal places.",
+    "answer": 24.0,
     "type": "geometry"
   },
   {
-    "question": "A sphere has a radius of 3 m. What is its volume? Use pi = 3.14159 and round to 2 decimal places. Write your final answer as: Answer: [number]",
-    "answer": 113.1,
+    "question": "A sphere has radius 6 m. What is the volume of the sphere? Use pi = 3.14159 and round to 2 decimal places. Write your final answer as: Answer: [number]",
+    "answer": 904.78,
     "type": "geometry"
   },
   {
-    "question": "A square has a side length of 8 cm. What is the length of its diagonal? Round to 2 decimal places. Write your final answer as: Answer: [number]",
-    "answer": 11.31,
+    "question": "A cube has side length 10 cm. A sphere of radius 5 cm is perfectly inscribed inside it. What is the volume of the part of the cube outside the sphere? Use pi = 3.14159 and round to 2 decimal places.",
+    "answer": 476.4,
     "type": "geometry"
   },
   {
-    "question": "A ball is dropped from rest and falls for 4 seconds. Using g = 9.8 m/s squared, how far does it fall in metres? Write your final answer as: Answer: [number]",
-    "answer": 78.4,
+    "question": "A projectile is launched vertically upward with initial velocity 49 m/s. Using g = 9.8 m/s squared, after how many seconds does it return to the ground?",
+    "answer": 10.0,
     "type": "physics"
   },
   {
-    "question": "A car accelerates uniformly from 0 to 30 m/s in 10 seconds. What distance does it cover in metres? Write your final answer as: Answer: [number]",
+    "question": "A car accelerates uniformly from 10 m/s to 40 m/s in 6 seconds. What distance does it travel during this time? Write your final answer as: Answer: [number]",
     "answer": 150.0,
     "type": "physics"
   },
   {
-    "question": "A force of 80 N acts on a mass of 16 kg. What is the acceleration in m/s squared? Write your final answer as: Answer: [number]",
+    "question": "A force of 120 N acts on an object causing an acceleration of 3 m/s squared. What is the mass of the object in kilograms?",
+    "answer": 40.0,
+    "type": "physics"
+  },
+  {
+    "question": "A 5 kg object moving at 12 m/s collides elastically with a stationary object. What was the initial kinetic energy of the moving object? Write your final answer as: Answer: [number]",
+    "answer": 360.0,
+    "type": "physics"
+  },
+  {
+    "question": "An object is dropped from a height of 245 metres. Using g = 9.8 m/s squared and ignoring air resistance, how many seconds does it take to reach the ground? Round to 2 decimal places.",
+    "answer": 7.07,
+    "type": "physics"
+  },
+  {
+    "question": "Find the sum of the first 30 terms of the arithmetic sequence: 5, 9, 13, 17, ...",
+    "answer": 1890.0,
+    "type": "series"
+  },
+  {
+    "question": "What is the 20th term of the arithmetic sequence that starts at 7 with common difference 5?",
+    "answer": 102.0,
+    "type": "series"
+  },
+  {
+    "question": "Find the sum of the first 7 terms of the geometric sequence: 3, 12, 48, 192, ...",
+    "answer": 16383.0,
+    "type": "series"
+  },
+  {
+    "question": "A geometric sequence has first term 2 and common ratio 5. What is the 8th term?",
+    "answer": 156250.0,
+    "type": "series"
+  },
+  {
+    "question": "A train travels 240 km at 80 km/h, then 360 km at 120 km/h, and finally 150 km at 50 km/h. What is the average speed for the entire journey in km/h? Round to 2 decimal places.",
+    "answer": 83.33,
+    "type": "word_problem"
+  },
+
+  {
+    "question": "Solve for x: (3x - 7)(2x + 5) = 4x squared + 19x - 15. Give the larger root only.",
+    "answer": 10.0,
+    "type": "algebra"
+  },
+
+  {
+    "question": "A cylinder has radius 7 cm and height 13 cm. What is its total surface area? Use pi = 3.14159 and round to 2 decimal places.",
+    "answer": 879.65,
+    "type": "geometry"
+  },
+
+  {
+    "question": "A car accelerates uniformly from 12 m/s to 38 m/s in 7 seconds, then continues at constant speed for 15 seconds. What total distance does it travel in metres? Round to 2 decimal places.",
+    "answer": 727.0,
+    "type": "physics"
+  },
+
+  {
+    "question": "Find the sum of the first 15 terms of the geometric sequence: 5, 15, 45, 135, ...",
+    "answer": 717445.0,
+    "type": "series"
+  },
+  {
+    "question": "What is the sum of all even integers from 2 to 200 inclusive?",
+    "answer": 10100.0,
+    "type": "series"
+  },
+  {
+    "question": "A recursive sequence is defined by a1 = 3 and a(n+1) = 2a(n) + 1. What is a6?",
+    "answer": 127.0,
+    "type": "series"
+  },
+  {
+    "question": "A ball is thrown upward from a height of 20 metres with initial velocity 24 m/s. Using g = 9.8 m/s squared, what maximum height does it reach above the ground? Round to 2 decimal places.",
+    "answer": 49.39,
+    "type": "physics"
+  },
+  {
+    "question": "Two cyclists start 210 km apart and ride toward each other. One travels at 24 km/h and the other at 18 km/h. After how many hours will they meet?",
     "answer": 5.0,
-    "type": "physics"
-  },
-  {
-    "question": "An object of mass 4 kg is moving at 10 m/s. What is its kinetic energy in joules? Write your final answer as: Answer: [number]",
-    "answer": 200.0,
-    "type": "physics"
-  },
-  {
-    "question": "A 2 kg object is lifted 5 m above the ground. Using g = 9.8 m/s squared, what is its gravitational potential energy in joules? Write your final answer as: Answer: [number]",
-    "answer": 98.0,
-    "type": "physics"
-  },
-  {
-    "question": "Find the sum of the first 20 terms of the arithmetic series: 3, 7, 11, 15, ...",
-    "answer": 820.0,
-    "type": "series"
-  },
-  {
-    "question": "What is the 15th term of the arithmetic sequence that starts at 4 with a common difference of 6?",
-    "answer": 88.0,
-    "type": "series"
-  },
-  {
-    "question": "Find the sum of the first 8 terms of the geometric series: 2, 6, 18, 54, ...",
-    "answer": 6560.0,
-    "type": "series"
-  },
-  {
-    "question": "A geometric sequence has first term 5 and common ratio 3. What is the 6th term?",
-    "answer": 1215.0,
-    "type": "series"
-  },
-  {
-    "question": "What is the sum of all integers from 1 to 100?",
-    "answer": 5050.0,
-    "type": "series"
-  },
-  {
-    "question": "A geometric series has first term 1 and common ratio 0.5. What is the sum to infinity?",
-    "answer": 2.0,
-    "type": "series"
+    "type": "word_problem"
   }
 ]

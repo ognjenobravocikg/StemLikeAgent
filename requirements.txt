@@ -3,3 +3,4 @@ pydantic
 rich
 loguru
 python-dotenv
+matplotlib

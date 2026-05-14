@@ -12,7 +12,6 @@ class StemAgent:
 
     def build_prompt(self, question):
         processed_question = question
-
         for capability in self.capabilities:
             processed_question = (
                 capability.process(

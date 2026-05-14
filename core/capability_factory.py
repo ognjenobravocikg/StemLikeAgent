@@ -14,33 +14,23 @@ class CapabilityFactory:
     def build_from_config(config):
         capabilities = []
 
-        # --- existing capabilities ---
         if config.get("planner"):
             capabilities.append(PlannerCapability())
-
         if config.get("critic"):
             capabilities.append(CriticCapability())
-
         if config.get("reflection"):
             capabilities.append(ReflectionCapability())
-
         if config.get("retrieval"):
             capabilities.append(RetrievalCapability())
-
-        # --- new math-specialized capabilities ---
         if config.get("knowledge_retriever"):
-            # Goes first: injects theory before solving
             capabilities.append(KnowledgeRetrieverCapability())
-
         if config.get("formula_solver"):
-            # Runs after knowledge injection, before final answer
             capabilities.append(FormulaSolverCapability())
-
         if config.get("geometry_solver"):
             capabilities.append(GeometrySolverCapability())
 
+
         if config.get("self_consistency"):
-            # Goes last: validates the final answer
             capabilities.append(SelfConsistencyCapability())
 
         return capabilities

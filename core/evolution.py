@@ -4,193 +4,268 @@ from core.capability_selector import CapabilitySelector
 from core.mutation_engine import MutationEngine
 from core.experiment_tracker import ExperimentTracker
 from core.memory_manager import MemoryManager
+from core.evolution_chart import EvolutionChart
 
-ALL_CAPABILITIES = [
-    "planner", "critic", "reflection", "retrieval",
-    "self_consistency", "formula_solver",
-    "geometry_solver", "knowledge_retriever",
+
+CAPABILITIES = [
+    "planner",
+    "critic",
+    "reflection",
+    "retrieval",
+    "self_consistency",
+    "formula_solver",
+    "geometry_solver",
+    "knowledge_retriever"
 ]
 
-# Capability pairs that must never be active together.
-# formula/geometry_solver receive already-transformed text from planner,
-# which breaks their equation/shape extraction logic.
-INCOMPATIBLE_PAIRS = [
-    frozenset(["formula_solver",   "planner"]),
-    frozenset(["geometry_solver",  "planner"]),
-    frozenset(["self_consistency", "retrieval"]),
+BAD_PAIRS = [
+    {"formula_solver", "planner"},
+    {"geometry_solver", "planner"},
+    {"self_consistency", "retrieval"}
 ]
+
+MAX_RETRIES = 3
 
 
 class EvolutionEngine:
 
     def __init__(self, evaluator):
         self.evaluator = evaluator
+
         self.tracker = ExperimentTracker()
         self.memory_manager = MemoryManager()
+
         self.failure_analyzer = FailureAnalyzer()
-        self.capability_selector = CapabilitySelector()
-        self.mutation_engine = MutationEngine()
+        self.selector = CapabilitySelector()
+        self.mutator = MutationEngine()
 
-        self.mutation_attempts = 0
-        self.mutation_successes = 0
+        self.total_tries = 0
+        self.good_mutations = 0
 
-    def _is_incompatible(self, active_config, new_capability):
-        """Return True if new_capability conflicts with any already-active capability."""
-        active = {k for k, v in active_config.items() if v}
-        for pair in INCOMPATIBLE_PAIRS:
-            if new_capability in pair:
-                other = (pair - {new_capability}).pop()
-                if other in active:
+    # If pairs are in conflict, we skip them to avoid combinatorial explosion and wasted tries. 
+    def _conflicts(self, cfg, cap):
+        enabled = []
+
+        for k, v in cfg.items():
+            if v:
+                enabled.append(k)
+
+        for pair in BAD_PAIRS:
+            if cap not in pair:
+                continue
+
+            for x in pair:
+                if x != cap and x in enabled:
                     return True
+
         return False
 
+    def _avg_score(self, scores):
+        vals = []
+        for _, (score, _) in scores.items():
+            vals.append(score)
+        if not vals:
+            return 0
+
+        return sum(vals) / len(vals)
+
     def evolve(self, base_agent):
-        best_agent = base_agent
-        domain = base_agent.config.get("domain", None)
+        agent = base_agent
 
-        print("\n--- Baseline evaluation ---")
-        task_scores = self.evaluator.score_all_tasks(best_agent)
-        best_score = (
-            sum(s for s, _ in task_scores.values()) / len(task_scores)
-        )
-        print(f"Base score: {best_score:.2f}/10\n")
+        domain = None
+        if "domain" in agent.config:
+            domain = agent.config["domain"]
 
-        ranked_capabilities = self.memory_manager.rank_capabilities(
-            ALL_CAPABILITIES
-        )
-        print(f"Memory-ranked capabilities: {ranked_capabilities}\n")
+        print("\nstarting baseline run...\n")
 
+        task_scores = self.evaluator.score_all_tasks(agent)
+
+        initial_scores = {}
+        for q, (s, _) in task_scores.items():
+            initial_scores[q] = s
+
+        best_score = self._avg_score(task_scores)
+
+        print("base score =", round(best_score, 2))
+
+        chart = EvolutionChart(base_score=best_score)
+
+        # main task at hand
         for task in self.evaluator.tasks:
-            question = task["question"]
-            task_type = task.get("type", "unknown")
-            current_score, current_answer = task_scores[question]
+            q = task["question"]
+            t = task.get("type", "unknown")
 
-            # ── Skip tasks already solved ──────────────────────────────────
-            if current_score >= 10.0:
+            curr_score, curr_answer = task_scores[q]
+
+            if curr_score >= 10:
                 continue
 
-            print(f"[{task_type.upper()}] score={current_score}/10 → analysing...")
+            print("\n" + "-" * 50)
+            print(t.upper(), "|", curr_score, "/10")
+            print(q[:80])
 
-            failure_type = self.failure_analyzer.analyze(
-                question, current_answer, current_score, domain=domain
-            )
-            print(f"  Weakness      : {failure_type}")
+            tried = set()
 
-            # Pass active config + task_type so selector can skip
-            # already-active caps and use task-type-specific fallbacks.
-            capability_name = self.capability_selector.select(
-                failure_type, best_agent.config,
-                domain=domain, task_type=task_type
-            )
+            retry = 0
 
-            if not capability_name:
-                print("  All options already active or no match — skipping.\n")
-                continue
+            while retry < MAX_RETRIES:
 
-            # Incompatible pair check
-            if self._is_incompatible(best_agent.config, capability_name):
-                print(
-                    f"  {capability_name} conflicts with an active capability"
-                    f" — skipping.\n"
+                retry += 1
+
+                print("\nretry", retry)
+
+                merged_cfg = dict(agent.config)
+
+                for c in tried:
+                    merged_cfg[c] = True
+
+                failure = self.failure_analyzer.analyze(
+                    q,
+                    curr_answer,
+                    curr_score,
+                    domain=domain
                 )
-                continue
 
-            print(f"  Trying        : {capability_name}")
+                print("failure:", failure)
 
-            new_config = self.mutation_engine.mutate(
-                best_agent.config, capability_name
-            )
-            candidate_agent = StemAgent(config=new_config)
+                # POPRAVI KASNIJE
+                capability = self.selector.select(
+                    failure,
+                    merged_cfg,
+                    domain=domain,
+                    task_type=t
+                )
 
-            # ── Evaluate ONLY on same-type tasks ───────────────────────────
-            # Baseline for this type using cached scores
-            type_tasks = [
-                t for t in self.evaluator.tasks
-                if t.get("type") == task_type
-            ]
-            type_baseline = (
-                sum(task_scores[t["question"]][0] for t in type_tasks)
-                / len(type_tasks)
-            )
-
-            print(
-                f"  Evaluating on [{task_type}] tasks only "
-                f"(baseline={type_baseline:.2f})..."
-            )
-            candidate_type_score, candidate_type_results = (
-                self.evaluator.evaluate_by_type(candidate_agent, task_type)
-            )
-            print(
-                f"  Type result   : {type_baseline:.2f} → "
-                f"{candidate_type_score:.2f}"
-            )
-
-            self.mutation_attempts += 1
-
-            # ── Regression guard ───────────────────────────────────────────
-            # Reject if any previously-perfect task in this type dropped.
-            regression = False
-            for t in type_tasks:
-                q = t["question"]
-                prev = task_scores[q][0]
-                new  = candidate_type_results[q][0]
-                if prev >= 10.0 and new < 10.0:
-                    print(f"  REGRESSION: {q[:60]}...")
-                    regression = True
+                if capability is None:
+                    print("nothing left to try")
                     break
 
-            accepted = (not regression) and (candidate_type_score > type_baseline)
+                if self._conflicts(agent.config, capability):
+                    print(capability, "conflicts with current setup")
+                    tried.add(capability)
+                    continue
 
-            if accepted:
-                self.mutation_successes += 1
-                print(f"  ACCEPTED — improvement on [{task_type}] tasks.")
-                best_agent = candidate_agent
+                print("trying", capability)
 
-                # Update cached scores for same-type tasks only
-                task_scores.update(candidate_type_results)
-                best_score = (
-                    sum(s for s, _ in task_scores.values()) / len(task_scores)
+                new_cfg = self.mutator.mutate(
+                    agent.config,
+                    capability
                 )
-                print(f"  New overall score: {best_score:.2f}/10")
-            else:
-                print("  Rejected.")
 
-            self.memory_manager.record_result(capability_name, accepted)
+                candidate = StemAgent(config=new_cfg)
 
-            self.tracker.log(
-                base_config=best_agent.config,
-                mutation=capability_name,
-                candidate_config=new_config,
-                score=candidate_type_score,
-                accepted=accepted,
-                failure_type=failure_type,
-            )
+                score, answer, extracted = self.evaluator.run_single(candidate,task)
 
-            # Re-rank after each memory update
-            ranked_capabilities = self.memory_manager.rank_capabilities(
-                ALL_CAPABILITIES
-            )
+                print("score:", curr_score, "->", score, "| got:", extracted, "| expected:", task.get("answer"))
 
-            success_rate = (
-                self.mutation_successes / self.mutation_attempts * 100
-                if self.mutation_attempts else 0
-            )
-            print(
-                f"  Adaptation rate: "
-                f"{self.mutation_successes}/{self.mutation_attempts} "
-                f"({success_rate:.0f}%)\n"
-            )
+                self.total_tries += 1
+
+                accepted = score > curr_score
+
+                self.memory_manager.record_result(
+                    capability,
+                    accepted
+                )
+
+                self.tracker.log(
+                    base_config=agent.config,
+                    mutation=capability,
+                    candidate_config=new_cfg,
+                    score=score,
+                    accepted=accepted,
+                    failure_type=failure
+                )
+
+                if accepted:
+
+                    old = curr_score
+
+                    self.good_mutations += 1
+
+                    curr_score = score
+                    curr_answer = answer
+
+                    agent = candidate
+
+                    task_scores[q] = (score, answer)
+
+                    best_score = self._avg_score(task_scores)
+
+                    print("accepted")
+                    print("overall:", round(best_score, 2))
+
+                    chart.record_mutation(
+                        capability=capability,
+                        question_short=q[:50],
+                        task_type=t,
+                        score_before=old,
+                        score_after=score,
+                        overall_score=best_score,
+                        accepted=True
+                    )
+
+                else:
+                    tried.add(capability)
+
+                    print("rejected")
+
+                    chart.record_mutation(
+                        capability=capability,
+                        question_short=q[:50],
+                        task_type=t,
+                        score_before=curr_score,
+                        score_after=score,
+                        overall_score=best_score,
+                        accepted=False
+                    )
+
+                if self.total_tries > 0:
+                    rate = (
+                        self.good_mutations /
+                        self.total_tries
+                    ) * 100
+                else:
+                    rate = 0
+
+                print(
+                    "adaptation:",
+                    self.good_mutations,
+                    "/",
+                    self.total_tries,
+                    f"({rate:.0f}%)"
+                )
+
+                if curr_score >= 10:
+                    print("solved")
+                    break
 
         self.tracker.save()
 
-        final_rate = (
-            self.mutation_successes / self.mutation_attempts * 100
-            if self.mutation_attempts else 0
-        )
+        final_scores = {}
+        for q, (s, _) in task_scores.items():
+            final_scores[q] = s
+
+        active_caps = []
+
+        for k, v in agent.config.items():
+            if v:
+                active_caps.append(k)
+
+        print("\n" + "=" * 50)
         print(
-            f"\nFinal adaptation rate: "
-            f"{self.mutation_successes}/{self.mutation_attempts} "
-            f"({final_rate:.0f}%)"
+            "FINAL ADAPTATION RATE:",
+            self.good_mutations,
+            "/",
+            self.total_tries
         )
 
-        return best_agent, best_score
+        print("active:", active_caps)
+        print("=" * 50)
+
+        chart.generate(
+            initial_task_scores=initial_scores, final_task_scores=final_scores,
+            tasks=self.evaluator.tasks,
+            final_config=agent.config
+        )
+
+        return agent, best_score

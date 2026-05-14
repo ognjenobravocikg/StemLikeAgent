@@ -20,13 +20,14 @@ def main():
     print(f"FINAL SCORE: {final_score:.2f}/10")
     print("="*50)
 
-    # Run a sample problem with the evolved agent
+    # Just a show off test at the end to see how the specialized agent does on a question, step by step
     test_question = (
         "A sphere has a radius of 3 m. "
         "What is its volume? Round to 2 decimal places."
     )
 
     print(f"\nTEST QUESTION: {test_question}")
+
     answer = specialized_agent.run(test_question)
     print(f"\nSPECIALIZED AGENT ANSWER:\n{answer}")
 

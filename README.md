@@ -196,7 +196,7 @@ Baseline: 7.55 / 10
 Adapted:  8.09 / 10
 ```
 
-The improvement is modest but meaningful for a low-cost prompt/tool adaptation method. The improvement is likely to change using a more powerful model.
+The improvement is modest but meaningful for a low-cost prompt/tool adaptation method. The improvement is subject of change using a more powerful, modern model.
 
 ![Chart](experiments/evolution_chart_20260514_061432.png)
 

@@ -1,0 +1,47 @@
+Recent advances in agentic AI have led to the rise of ‘claw-like’ autonomous agents: systems capable of operating continuously in the background, interacting through chat interfaces, and performing long-running tasks with minimal supervision. Despite the hype, a human in the loop remains a hard requirement for any task that truly matters and a design challenge for future models of this architecture.
+
+This text answers: "What stops us from crossing the chasm from "claw-like" agents being considered as fully-fletched Software Engineers", as well as "What are the limitations and possible workarounds".
+
+--- ISSUES ---
+
+1. Missing the Big Picture:
+AI agents are fundamentally task-oriented, they often chase a given objective often ignoring the wider context or knowledge of deeper nuances of the human world. An LLM-powered trading agent told to "maximize returns" might pour investments into a single stock or sector, unaware to the systemic risk of market panic or an industry-level crash. For an Fully-autonomous AI Software Engineer, the same can manifest as a pull request that perfectly implements a requested feature, but breaks a critical invariant or leaves open a security vulnerability. [1]
+
+2. Leaky Memory: Context-Window Fragmentation and Summarization
+AI agents implement a "context-window" and the larger it is the more expensive and computational intensive it also tends to be. In the current landscape LLMs can hold thousands of words and files in its context window, but in order to accommodate larger tasks it tends to overflow. In this case LLM chooses to summarize the text, which is a lossy process: crucial constraint, decisions, and knowledge get condensed into vague, sometimes inaccurate placeholders. The original key insight looses its meaning or might even be transformed into an unwanted value. This can affect the agent's ability to make coherent, long-term decisions [3]. For an autonomous agent with a role of a software engineer that keeps track of hundreds of files, this memory bottleneck is a big issue. The agent can forget why a certain function was written, which edge cases were handled, or what the client's priority was, leading to bugs, security holes and circular patches that undo previous work. 
+
+3. Security, Privacy and Ethical Gaps
+Even when agents produce functionally correct output, they routinely ignore constraints that human engineers consider key components. Data encryption can be disregarded, they can bypass access modifiers, and generate code that leaks secrets or grants critical permissions [2]. 
+
+Compounding the problem is the responsibility gap [4]: when a harmful outcome occurs, which can be a data breach, financial loss, a system outage - who can be held accountable? As current laws and legislations didn't catch up to this branch of IT, it makes fully-autonomous operation unacceptable for any critical domain, that might include important data of people or company assets.
+
+--- WORKAROUNDS ---
+
+While agentic AI is still rather new, plenty ideas are being proposed that can influence and mitigate the issues posed by this method. 
+
+1. System prompts and domain-specific constraints
+The system implemented in the first task (STEM agents) can be leveraged here. They can change their architecture to best suit the specific roles an automated AI agent could pose as. For example system prompts and tool usage can be changed depending whether the "Claw-like" agent should be a Data Engineer Assistant or Cyber Security Assistant.
+
+2. Tool and Permission restrictions
+Read-only access and sandboxed environments can be used in order to control autonomous AI agent behavior and test the code before deployment. Tool specific restrictions can be issued, some tools that can affect critical parts of the infrastructure can be denied permissions, while others can have more freedom. [1]
+
+3. Supervisor architectures and "pinned memory" 
+This idea proposes a usually smaller model monitoring a larger and more complex one, in this case the smaller model poses as a "Supervisor", in combination with (2. Tool and Permission restrictions) this can pose as an acceptable solution that is only limited by the capabilities of the LLMs themselves.
+
+"Pinned memory" can also be implemented in order to reduce the risk of mission-critical details being forgotten, transformed or hallucinated.
+
+4. Legislation 
+For ethical concerns and problems like the responsibility gap more robust and larger law codes must be issued. More countries are recognizing the importance of AI and its autonomy concerns, this can be seen by the efforts of EU and its restrictive AI laws. [5]
+
+Without legal frameworks defining accountability, companies are unlikely to trust fully autonomous agents with safety-critical infrastructure or sensitive user data
+
+--- CONCLUSION --- 
+The idea of a fully autonomous AI agent and especially a complete AI Software Engineer currently isn't a reality. Proposed workarounds serve more as a net than a surefire way to stop its current issues and lack of capabilities, in order to have a future with fully autonomous Software Engineers proposed ideas must be experimented upon and tested as well as new ideas such as (1. System prompts and domain-specific constraints) must appear in order to innovate in this field.
+
+References
+1. Keeping Humans in the Loop: Building Safer 24/7 AI Agents by ByteBridge (https://bytebridge.medium.com/keeping-humans-in-the-loop-building-safer-24-7-ai-agents-44a3366f94c2 last date of access: 13.5.2026)
+2. Autonomous Agents and Ethical Issues: Balancing Innovation with Responsibility (https://smythos.com/developers/agent-development/autonomous-agents-and-ethical-issues/ last date of access: 13.5.2026)
+3. "OpenClaw's Victim: Meta Researcher's Inbox Melted Down" by Mandar Kargad, PhD. (https://pub.towardsai.net/openclaws-victim-meta-researcher-s-inbox-melted-down-262a6b69570e last date of access: 13.5.2026) 
+4. Responsibility Gaps by Michael Da Silva (https://compass.onlinelibrary.wiley.com/doi/10.1111/phc3.70002 last date of access: 13.5.2026)
+5. EU AI Act: first regulation on artificial intelligence (https://www.europarl.europa.eu/topics/en/article/20230601STO93804/eu-ai-act-first-regulation-on-artificial-intelligence last date of access: 13.5.2026)
+

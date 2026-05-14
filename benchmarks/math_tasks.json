@@ -20,6 +20,11 @@
     "type": "word_problem"
   },
   {
+    "question": "An octave doubles frequency. If A=440Hz, what frequency is the note exactly 7 semitones up? Round the results to 2 decimal places.",
+    "answer": 659.21,
+    "type": "word_problem"
+  },
+  {
     "question": "A bacteria colony doubles every 5 hours. Starting with 150 bacteria, after how many hours will the population first exceed 19,000?",
     "answer": 35.0,
     "type": "word_problem"
@@ -130,7 +135,11 @@
     "answer": 10.0,
     "type": "algebra"
   },
-
+  {
+    "question": "A league has 12 teams. How many games are needed so every team plays every other team twice?",
+    "answer": 132.0,
+    "type": "word_problem"
+  },
   {
     "question": "A cylinder has radius 7 cm and height 13 cm. What is its total surface area? Use pi = 3.14159 and round to 2 decimal places.",
     "answer": 879.65,

@@ -1,7 +1,7 @@
 # STEM Agent for Mathematical Reasoning
 
 Project by Ognjen Obradovic
-For JetBrains LLM Intern Position
+for the JetBrains LLM Intern Position
 
 ## Motivation
 
@@ -34,7 +34,9 @@ Run the experiment:
 python main.py
 ```
 
-The project currently uses the OpenRouter model configured in `llm/client.py`:
+The project currently uses the OpenRouter model configured in `llm/client.py`.
+
+> Note: Because of time constraint, model used is quite small. I recommend that for any further research using this method, the user uses a bigger, more modern model.
 
 ```text
 openrouter/openai/gpt-oss-20b:free
@@ -194,7 +196,9 @@ Baseline: 7.55 / 10
 Adapted:  8.09 / 10
 ```
 
-The improvement is modest but meaningful for a low-cost prompt/tool adaptation method. The system does not fine-tune the model; it only changes the agent's active capabilities.
+The improvement is modest but meaningful for a low-cost prompt/tool adaptation method. The improvement is likely to change using a more powerful model.
+
+![Chart](experiments/evolution_chart_20260514_061432.png)
 
 Generated charts are saved in the `experiments/` directory. The chart shows:
 
